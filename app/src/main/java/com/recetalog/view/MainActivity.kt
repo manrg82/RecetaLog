@@ -52,8 +52,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadView(layoutResId: Int) {
-        binding.contentContainer.removeAllViews()
-        val view = LayoutInflater.from(this).inflate(layoutResId, binding.contentContainer, false)
-        binding.contentContainer.addView(view)
+        binding.lytContenedor.removeAllViews()
+        val view = LayoutInflater.from(this).inflate(layoutResId, binding.lytContenedor, false)
+        binding.lytContenedor.addView(view)
+        if (layoutResId == R.layout.view_profile) {
+            val btnAbt = view.findViewById<View>(R.id.btnOsc)
+            btnAbt?.setOnClickListener {
+                loadView(R.layout.view_dependency)
+            }
+        }
+            val btnExplore = view.findViewById<View>(R.id.btnExplore)
+            btnExplore?.setOnClickListener {
+                binding.bottomNavigation.selectedItemId = R.id.navigation_recetas
+            }
+        }
     }
-}
