@@ -1,5 +1,6 @@
 package com.recetalog.view
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.recetalog.R
 import com.recetalog.databinding.ActivityMainBinding
+import com.recetalog.model.Receta
+import com.recetalog.model.conexion.AppDatabase
+import com.recetalog.model.conexion.RecetaDAO
+import java.io.ByteArrayOutputStream
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -50,7 +55,16 @@ class MainActivity : AppCompatActivity() {
         }
         binding.bottomNavigation.selectedItemId = R.id.navigation_home
     }
-
+    private suspend fun guardarRecetaConImagen(receta: Receta, imagenBitmap: Bitmap?) {
+        val bytes = imagenBitmap?.let {
+            val stream = ByteArrayOutputStream()
+            it.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+            stream.toByteArray()
+        }
+        val recetaConImagen = receta.copy(imagen = bytes)
+        val db=AppDatabase.getDatabase(applicationContext)
+            db.recetaDAO().insert(recetaConImagen)
+    }
     private fun loadView(layoutResId: Int) {
         binding.lytContenedor.removeAllViews()
         val view = LayoutInflater.from(this).inflate(layoutResId, binding.lytContenedor, false)

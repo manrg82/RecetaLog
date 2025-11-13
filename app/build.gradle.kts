@@ -56,4 +56,5 @@ dependencies {
     implementation("androidx.room:room-runtime:2.8.3")
     implementation("androidx.room:room-common:2.8.3")
     implementation("androidx.room:room-ktx:2.8.3")
+    implementation("javax.transaction:javax.transaction-api:1.3")
 }
