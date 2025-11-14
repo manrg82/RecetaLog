@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name">RecetaLog</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_recipes">My Recipes</string>
+    <string name="nav_acercade">About</string>
+
+    <!-- Home Screen -->
+    <string name="bienvenido">Welcome to RecetaLog!</string>
+    <string name="home_subtitle">Organize and discover your favorite recipes</string>
+    <string name="verecetas">View Recipes</string>
+    <string name="consejo1">💡 Tip of the day</string>
+    <string name="consejo">Organize your recipes with our tags to find them more easily</string>
+
+    <!-- Recipe List -->
+    <string name="mis_recetas">My Recipes</string>
+
+    <!-- Add/Edit Recipe -->
+    <string name="nueva_receta">New Recipe</string>
+    <string name="editar_receta">Edit Recipe</string>
+    <string name="seleccionar_imagen">Select Image</string>
+    <string name="nombre_receta_hint">Recipe name</string>
+    <string name="categorias">Categories</string>
+    <string name="ingredientes_hint">Ingredients</string>
+    <string name="pasos_hint">Preparation steps</string>
+    <string name="btn_cancelar">Cancel</string>
+    <string name="btn_guardar">Save</string>
+
+    <!-- Recipe Detail -->
+    <string name="ingredientes_titulo">📦 Ingredients</string>
+    <string name="pasos_titulo">👨‍🍳 Preparation</string>
+    <string name="btn_editar">Edit</string>
+    <string name="btn_eliminar">Delete</string>
+
+    <!-- Categories -->
+    <string name="cat_verdura">🥬 Vegetable</string>
+    <string name="cat_carne">🥩 Meat</string>
+    <string name="cat_pescado">🐟 Fish</string>
+    <string name="cat_postre">🍰 Dessert</string>
+    <string name="cat_lactosa">🥛 Dairy</string>
+    <string name="cat_fruta">🍎 Fruit</string>
+
+    <!-- Messages -->
+    <string name="msg_nombre_vacio">Please enter the recipe name</string>
+    <string name="msg_ingredientes_vacios">Please enter the ingredients</string>
+    <string name="msg_pasos_vacios">Please enter the preparation steps</string>
+    <string name="msg_receta_guardada">Recipe saved</string>
+    <string name="msg_receta_actualizada">Recipe updated</string>
+    <string name="msg_receta_eliminada">Recipe deleted</string>
+    <string name="msg_error_guardar">Error saving recipe</string>
+    <string name="msg_selecciona_imagen">First select an image</string>
+
+    <!-- Filter Dialog -->
+    <string name="filtrar_por">Filter by categories</string>
+    <string name="aplicar_filtro">Apply Filter</string>
+    <string name="limpiar_filtro">Clear Filter</string>
+    <string name="sin_recetas">No recipes match the filter</string>
+
+    <!-- Options Screen -->
+    <string name="modoOscuro">Dark Mode</string>
+    <string name="licencias">Licenses and Dependencies</string>
+    <string name="borrar">Delete Data</string>
+    <string name="msg_no_implementado">NOT YET IMPLEMENTED</string>
+    <string name="confirmar_borrado">Are you sure you want to delete all data?</string>
+    <string name="si">Yes</string>
+    <string name="no">No</string>
+    <string name="datos_borrados">All data has been deleted</string>
+    <string name="modo_oscuro_activado">Dark mode activated</string>
+    <string name="modo_oscuro_desactivado">Dark mode deactivated</string>
+
+    <!-- About Screen -->
+    <string name="acercadetitulo">Licenses and Dependencies</string>
+    <string name="version">Version: 0.3\n</string>
+    <string name="autor">Author: Manuel Ruiz Gutiérrez</string>
+    <string name="contacto">Contact: manuelruizgutierrez810@gmail.com\n</string>
+    <string name="github">GitHub Profile: manrg82\n</string>
+    <string name="acercadecontent">Third-party dependencies:- androidx.core:core-ktx:1.x.x License: Apache License 2.0 https://www.apache.org/licenses/LICENSE-2.0- com.squareup.retrofit2:retrofit:2.x.x  License: Apache License 2.0&#xA;https://www.apache.org/licenses/LICENSE-2.0- com.github.bumptech.glide:glide:4.x.x  License: BSD, see: https://github.com/bumptech/glide/blob/master/LICENSE- timber:timber:4.x.x  License: MIT&#xA;https://opensource.org/licenses/MIT&#xA;AndroidX Core KTX — Apache-2.0AndroidX AppCompat — Apache-2.0Material Components (com.google.android.material) — Apache-2.0ConstraintLayout — Apache-2.0Navigation Component — Apache-2.0Lifecycle / ViewModel / LiveData — Apache-2.0Room — Apache-2.0WorkManager — Apache-2.0Kotlin stdlib / Kotlinx Coroutines — Apache-2.0Retrofit — Apache-2.0OkHttp — Apache-2.0Moshi / Gson — Apache-2.0Glide — BSDCoil — Apache-2.0Hilt / Dagger — Apache-2.0Timber — MITFirebase Android SDKs — Apache-2.0 ExoPlayer — Apache-2.0</string>
+</resources>
+

@@ -1,19 +1,80 @@
 <resources>
     <string name="app_name">RecetaLog</string>
+
+    <!-- Navigation -->
     <string name="nav_home">Inicio</string>
     <string name="nav_recipes">Mis Recetas</string>
     <string name="nav_acercade">Acerca De</string>
-    <string name="acercadecontent">Dependencias de terceros:- androidx.core:core-ktx:1.x.x Licencia: Apache License 2.0 https://www.apache.org/licenses/LICENSE-2.0- com.squareup.retrofit2:retrofit:2.x.x  Licencia: Apache License 2.0&#xA;https://www.apache.org/licenses/LICENSE-2.0- com.github.bumptech.glide:glide:4.x.x  Licencia: BSD, see: https://github.com/bumptech/glide/blob/master/LICENSE- timber:timber:4.x.x  Licencia: MIT&#xA;https://opensource.org/licenses/MIT&#xA;AndroidX Core KTX — Apache-2.0AndroidX AppCompat — Apache-2.0Material Components (com.google.android.material) — Apache-2.0ConstraintLayout — Apache-2.0Navigation Component — Apache-2.0Lifecycle / ViewModel / LiveData — Apache-2.0Room — Apache-2.0WorkManager — Apache-2.0Kotlin stdlib / Kotlinx Coroutines — Apache-2.0Retrofit — Apache-2.0OkHttp — Apache-2.0Moshi / Gson — Apache-2.0Glide — BSDCoil — Apache-2.0Hilt / Dagger — Apache-2.0Timber — MITFirebase Android SDKs — Apache-2.0 ExoPlayer — Apache-2.0</string>
-    <string name="acercadetitulo">Licencias Y Dependencias</string>
+
+    <!-- Home Screen -->
+    <string name="bienvenido">¡Bienvenido a RecetaLog!</string>
+    <string name="home_subtitle">Organiza y descubre tus recetas favoritas</string>
+    <string name="verecetas">Ver Recetas</string>
+    <string name="consejo1">💡 Consejo del día</string>
+    <string name="consejo">Organiza tus recetas con nuestras etiquetas para encontrarlas más fácilmente</string>
+
+    <!-- Recipe List -->
+    <string name="mis_recetas">Mis Recetas</string>
+
+    <!-- Add/Edit Recipe -->
+    <string name="nueva_receta">Nueva Receta</string>
+    <string name="editar_receta">Editar Receta</string>
+    <string name="seleccionar_imagen">Seleccionar Imagen</string>
+    <string name="nombre_receta_hint">Nombre de la receta</string>
+    <string name="categorias">Categorías</string>
+    <string name="ingredientes_hint">Ingredientes</string>
+    <string name="pasos_hint">Pasos de preparación</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_guardar">Guardar</string>
+
+    <!-- Recipe Detail -->
+    <string name="ingredientes_titulo">📦 Ingredientes</string>
+    <string name="pasos_titulo">👨‍🍳 Preparación</string>
+    <string name="btn_editar">Editar</string>
+    <string name="btn_eliminar">Eliminar</string>
+
+    <!-- Categories -->
+    <string name="cat_verdura">🥬 Verdura</string>
+    <string name="cat_carne">🥩 Carne</string>
+    <string name="cat_pescado">🐟 Pescado</string>
+    <string name="cat_postre">🍰 Postre</string>
+    <string name="cat_lactosa">🥛 Lactosa</string>
+    <string name="cat_fruta">🍎 Fruta</string>
+
+    <!-- Messages -->
+    <string name="msg_nombre_vacio">Por favor ingresa el nombre de la receta</string>
+    <string name="msg_ingredientes_vacios">Por favor ingresa los ingredientes</string>
+    <string name="msg_pasos_vacios">Por favor ingresa los pasos de preparación</string>
+    <string name="msg_receta_guardada">Receta guardada</string>
+    <string name="msg_receta_actualizada">Receta actualizada</string>
+    <string name="msg_receta_eliminada">Receta eliminada</string>
+    <string name="msg_error_guardar">Error al guardar la receta</string>
+    <string name="msg_selecciona_imagen">Primero selecciona una imagen</string>
+
+    <!-- Filter Dialog -->
+    <string name="filtrar_por">Filtrar por categorías</string>
+    <string name="aplicar_filtro">Aplicar Filtro</string>
+    <string name="limpiar_filtro">Limpiar Filtro</string>
+    <string name="sin_recetas">No hay recetas que coincidan con el filtro</string>
+
+    <!-- Options Screen -->
     <string name="modoOscuro">Modo Oscuro</string>
     <string name="licencias">Licencias y Dependencias</string>
     <string name="borrar">Borrar Datos</string>
+    <string name="msg_no_implementado">NO IMPLEMENTADO AÚN</string>
+    <string name="confirmar_borrado">¿Estás seguro de borrar todos los datos?</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
+    <string name="datos_borrados">Todos los datos han sido borrados</string>
+    <string name="modo_oscuro_activado">Modo oscuro activado</string>
+    <string name="modo_oscuro_desactivado">Modo oscuro desactivado</string>
+
+    <!-- About Screen -->
+    <string name="acercadetitulo">Licencias Y Dependencias</string>
     <string name="version">Versión: 0.3\n</string>
-    <string name="github">Perfil en Github: manrg82\n</string>
     <string name="autor">Autor: Manuel Ruiz Gutiérrez</string>
     <string name="contacto">Contacto: manuelruizgutierrez810@gmail.com\n</string>
-    <string name="bienvenido">¡Bienvenido a RecetaLog!</string>
-    <string name="consejo">Organiza tus recetas con nuestas etiquetas para encontrarlas más fácilmente</string>
-    <string name="verecetas">Ver Recetas</string>
-    <string name="consejo1">💡 Consejo del día</string>
+    <string name="github">Perfil en Github: manrg82\n</string>
+    <string name="acercadecontent">Dependencias de terceros:- androidx.core:core-ktx:1.x.x Licencia: Apache License 2.0 https://www.apache.org/licenses/LICENSE-2.0- com.squareup.retrofit2:retrofit:2.x.x  Licencia: Apache License 2.0&#xA;https://www.apache.org/licenses/LICENSE-2.0- com.github.bumptech.glide:glide:4.x.x  Licencia: BSD, see: https://github.com/bumptech/glide/blob/master/LICENSE- timber:timber:4.x.x  Licencia: MIT&#xA;https://opensource.org/licenses/MIT&#xA;AndroidX Core KTX — Apache-2.0AndroidX AppCompat — Apache-2.0Material Components (com.google.android.material) — Apache-2.0ConstraintLayout — Apache-2.0Navigation Component — Apache-2.0Lifecycle / ViewModel / LiveData — Apache-2.0Room — Apache-2.0WorkManager — Apache-2.0Kotlin stdlib / Kotlinx Coroutines — Apache-2.0Retrofit — Apache-2.0OkHttp — Apache-2.0Moshi / Gson — Apache-2.0Glide — BSDCoil — Apache-2.0Hilt / Dagger — Apache-2.0Timber — MITFirebase Android SDKs — Apache-2.0 ExoPlayer — Apache-2.0</string>
 </resources>
+

@@ -11,13 +11,17 @@ import com.recetalog.model.Receta
 @Dao
 interface RecetaDAO {
     @Insert
-    suspend fun insert(receta: Receta);
+    suspend fun insert(receta: Receta)
+
     @Query("SELECT * FROM Receta")
-    fun getAllRecetas(): LiveData<List<Receta>>;
+    fun getAllRecetas(): LiveData<List<Receta>>
+
     @Query("SELECT * FROM Receta WHERE idreceta = :id")
-    fun getRecetaById(id: Int): LiveData<Receta>;
+    fun getRecetaById(id: Int): LiveData<Receta>
+
     @Update
-    fun update(receta: Receta);
+    suspend fun update(receta: Receta)
+
     @Delete
-    fun delete(receta: Receta);
+    suspend fun delete(receta: Receta)
 }

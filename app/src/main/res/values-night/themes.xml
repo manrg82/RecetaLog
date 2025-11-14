@@ -1,7 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.RecetaLog" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.RecetaLog" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#424242</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">#616161</item>
+        <item name="android:statusBarColor">#212121</item>
+        <item name="android:navigationBarColor">#212121</item>
+        <item name="colorSurface">#303030</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:windowBackground">#121212</item>
     </style>
 </resources>
