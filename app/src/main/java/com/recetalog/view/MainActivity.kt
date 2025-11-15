@@ -33,18 +33,33 @@ import com.recetalog.model.RecetaAdapter
 import com.recetalog.viewmodel.RecetaViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * Actividad principal: gestiona navegación entre vistas, interacción con el ViewModel
+ * y operaciones sobre recetas (crear, editar, eliminar, filtrar).
+ */
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    // ViewModel para operaciones con la base de datos de recetas
     val viewModel: RecetaViewModel by viewModels()
+    // Preferencias para guardar configuración del usuario (modo oscuro, etc.)
     private lateinit var sharedPreferences: SharedPreferences
 
+    // Bitmap temporal de la imagen seleccionada al crear/editar receta
     private var imagenSeleccionadaBitmap: Bitmap? = null
+    // Receta actualmente en edición (null si se crea una nueva)
     private var currentEditingReceta: Receta? = null
 
+    // Adapter del RecyclerView de recetas
     private var currentAdapter: RecetaAdapter? = null
+    // Lista completa de recetas
     private var allRecetas: List<Receta> = emptyList()
+    // Estado del filtro actual
     private var filtroActivo = FilterState()
 
+    /**
+     * Almacena el estado de los filtros activos.
+     * Permite marcar qué categorías están seleccionadas.
+     */
     data class FilterState(
         var verdura: Boolean = false,
         var carne: Boolean = false,
@@ -53,7 +68,9 @@ class MainActivity : AppCompatActivity() {
         var lactosa: Boolean = false,
         var fruta: Boolean = false
     ) {
+        // Comprueba si hay al menos un filtro activo
         fun isActive() = verdura || carne || pescado || postre || lactosa || fruta
+        // Desactiva todos los filtros
         fun reset() {
             verdura = false
             carne = false
@@ -64,8 +81,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Lanzador para seleccionar imágenes de la galería
     private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
+            // Decodifica la URI a Bitmap (compatible con API <28 y >=28)
             val bitmap = if (Build.VERSION.SDK_INT < 28) {
                 @Suppress("DEPRECATION")
                 MediaStore.Images.Media.getBitmap(contentResolver, it)
@@ -81,6 +100,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Carga preferencias antes de setContentView para aplicar tema
         sharedPreferences = getSharedPreferences("RecetaLog_prefs", Context.MODE_PRIVATE)
 
         val darkModeEnabled = sharedPreferences.getBoolean("dark_mode", false)
@@ -93,10 +113,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         try {
+            // Habilita edge-to-edge y prepara el layout
             enableEdgeToEdge()
             binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
+            // Ajusta padding para las barras de sistema
             ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
                 val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
                 v.setPadding(0, 0, 0, 0)
@@ -108,6 +130,7 @@ class MainActivity : AppCompatActivity() {
             setupBottomNavigation()
             loadView(R.layout.view_home)
 
+            // Observa cambios en recetas y aplica filtro
             viewModel.getAllRecetas().observe(this) { recetas ->
                 allRecetas = recetas
                 aplicarFiltro()
@@ -120,7 +143,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+    /**
+     * Configura la navegación inferior (bottom navigation).
+     * Maneja clics en los tres botones principales de la app.
+     */
     private fun setupBottomNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -139,14 +165,20 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        // Selecciona inicialmente la pestaña Home
         binding.bottomNavigation.selectedItemId = R.id.navigation_home
     }
 
+    /**
+     * Carga una vista XML dentro del contenedor principal.
+     * Ejecuta setup específico según qué vista se está cargando.
+     */
     private fun loadView(layoutResId: Int) {
         binding.lytContenedor.removeAllViews()
         val view = LayoutInflater.from(this).inflate(layoutResId, binding.lytContenedor, false)
         binding.lytContenedor.addView(view)
 
+        // Setup para la vista de Opciones/Acerca de
         if (layoutResId == R.layout.view_opciones) {
             val btnAbt = view.findViewById<View>(R.id.btnAbt)
             btnAbt?.setOnClickListener {
@@ -164,10 +196,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Setup para la vista de Recetas
         if (layoutResId == R.layout.view_recetas) {
             val recyclerView = view.findViewById<RecyclerView>(R.id.rcvMenuRecetas)
             recyclerView.layoutManager = LinearLayoutManager(this)
 
+            // Crea el adapter con callback para clics en receta
             val adapter = RecetaAdapter(
                 recetas = allRecetas,
                 onItemClick = { receta ->
@@ -179,11 +213,13 @@ class MainActivity : AppCompatActivity() {
 
             aplicarFiltro()
 
+            // Botón para abrir diálogo de filtro
             val btnFiltro = view.findViewById<View>(R.id.btnFiltro)
             btnFiltro?.setOnClickListener {
                 showFilterDialog()
             }
 
+            // Botón para crear nueva receta
             val btnAddRec = view.findViewById<View>(R.id.btnAddRec)
             btnAddRec?.setOnClickListener {
                 currentEditingReceta = null
@@ -191,10 +227,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Setup para la vista de Añadir/Editar Receta
         if (layoutResId == R.layout.view_add_rec) {
             setupAddRecetaView(view)
         }
 
+        // Setup para la vista Home
         if (layoutResId == R.layout.view_home) {
             val btnExplore = view.findViewById<View>(R.id.btnExplore)
             btnExplore?.setOnClickListener {
@@ -203,6 +241,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Configura campos y listeners de la vista para añadir/editar receta.
+     * Si currentEditingReceta no es null, carga sus datos para editar.
+     */
     private fun setupAddRecetaView(view: View) {
         imagenSeleccionadaBitmap = null
 
@@ -219,6 +261,7 @@ class MainActivity : AppCompatActivity() {
         val chipLactosa = view.findViewById<Chip>(R.id.chipLactosaEdit)
         val chipFruta = view.findViewById<Chip>(R.id.chipFrutaEdit)
 
+        // Si hay receta en edición, carga sus datos
         currentEditingReceta?.let { receta ->
             txtTitulo?.text = getString(R.string.editar_receta)
             edtNombre?.setText(receta.nmreceta)
@@ -238,17 +281,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Botón para seleccionar imagen de galería
         val btnSeleccionarImagen = view.findViewById<View>(R.id.btnSeleccionarImagen)
         btnSeleccionarImagen?.setOnClickListener {
             galleryLauncher.launch("image/*")
         }
 
+        // Botón Guardar: inserta o actualiza receta
         val btnGuardar = view.findViewById<View>(R.id.btnGuardar)
         btnGuardar?.setOnClickListener {
             val nombre = edtNombre?.text?.toString()?.trim()
             val ingredientes = edtIngredientes?.text?.toString()?.trim()
             val pasos = edtPasos?.text?.toString()?.trim()
 
+            // Validaciones de campos obligatorios
             if (nombre.isNullOrEmpty()) {
                 Toast.makeText(this, getString(R.string.msg_nombre_vacio), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -264,6 +310,7 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Actualizar si es edición, guardar si es creación
             if (currentEditingReceta != null) {
                 viewModel.actualizarRecetaEnDB(
                     idreceta = currentEditingReceta!!.idreceta,
@@ -300,6 +347,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Botón Cancelar
         val btnCancelar = view.findViewById<View>(R.id.btnCancelar)
         btnCancelar?.setOnClickListener {
             currentEditingReceta = null
@@ -307,6 +355,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Muestra el detalle de una receta con opciones para editar y eliminar.
+     */
     private fun loadRecetaDetalle(receta: Receta) {
         binding.lytContenedor.removeAllViews()
         val view = LayoutInflater.from(this).inflate(R.layout.view_rec_detalle, binding.lytContenedor, false)
@@ -324,6 +375,7 @@ class MainActivity : AppCompatActivity() {
         val chipLactosa = view.findViewById<Chip>(R.id.chipLactosaDetalle)
         val chipFruta = view.findViewById<Chip>(R.id.chipFrutaDetalle)
 
+        // Rellena los campos con datos de la receta
         txtNombre.text = receta.nmreceta
         txtIngredientes.text = receta.ingredientes
         txtPasos.text = receta.pasos
@@ -333,6 +385,7 @@ class MainActivity : AppCompatActivity() {
             imgReceta.setImageBitmap(bitmap)
         }
 
+        // Muestra u oculta etiquetas según la receta
         chipVerdura.visibility = if (receta.isVerdura) View.VISIBLE else View.GONE
         chipCarne.visibility = if (receta.isCarne) View.VISIBLE else View.GONE
         chipPescado.visibility = if (receta.isPescado) View.VISIBLE else View.GONE
@@ -340,12 +393,14 @@ class MainActivity : AppCompatActivity() {
         chipLactosa.visibility = if (receta.isLactosa) View.VISIBLE else View.GONE
         chipFruta.visibility = if (receta.isFruta) View.VISIBLE else View.GONE
 
+        // Botón Editar
         val btnEditar = view.findViewById<View>(R.id.btnEditarReceta)
         btnEditar?.setOnClickListener {
             currentEditingReceta = receta
             loadView(R.layout.view_add_rec)
         }
 
+        // Botón Eliminar
         val btnEliminar = view.findViewById<View>(R.id.btnEliminarReceta)
         btnEliminar?.setOnClickListener {
             lifecycleScope.launch {
@@ -356,6 +411,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Aplica el filtro activo sobre la lista de recetas.
+     * Usa OR lógico: una receta se muestra si cumple CUALQUIERA de los filtros activos.
+     */
     private fun aplicarFiltro() {
         if (currentAdapter == null) return
 
@@ -374,6 +433,9 @@ class MainActivity : AppCompatActivity() {
         currentAdapter?.updateRecetas(recetasFiltradas)
     }
 
+    /**
+     * Muestra un diálogo para seleccionar filtros.
+     */
     private fun showFilterDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_filter, null)
 
@@ -384,6 +446,7 @@ class MainActivity : AppCompatActivity() {
         val chipLactosa = dialogView.findViewById<Chip>(R.id.chipFiltroLactosa)
         val chipFruta = dialogView.findViewById<Chip>(R.id.chipFiltroFruta)
 
+        // Inicializa estado del diálogo con filtros activos
         chipVerdura.isChecked = filtroActivo.verdura
         chipCarne.isChecked = filtroActivo.carne
         chipPescado.isChecked = filtroActivo.pescado
@@ -411,6 +474,9 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    /**
+     * Muestra diálogo de confirmación para borrar todas las recetas.
+     */
     private fun showDeleteDataDialog() {
         AlertDialog.Builder(this)
             .setTitle(R.string.borrar)
@@ -427,6 +493,9 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    /**
+     * Alterna el modo oscuro y guarda la preferencia.
+     */
     private fun toggleDarkMode() {
         val currentMode = sharedPreferences.getBoolean("dark_mode", false)
         val newMode = !currentMode
@@ -439,6 +508,7 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
+        // Recrea la actividad para aplicar el cambio de tema
         recreate()
     }
 }

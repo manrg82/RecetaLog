@@ -4,6 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * Entidad que representa una receta en la base de datos Room.
+ * Contiene información de la receta: nombre, ingredientes, pasos, etiquetas e imagen.
+ */
 @Entity(tableName = "Receta")
 data class Receta (
   @PrimaryKey(autoGenerate = true)@ColumnInfo(name="idreceta") val idreceta: Int,

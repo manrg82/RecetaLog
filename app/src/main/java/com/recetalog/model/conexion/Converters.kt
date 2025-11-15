@@ -5,8 +5,12 @@ import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
 import java.io.ByteArrayOutputStream
 
+/**
+ * Converters para que Room pueda serializar/deserializar Bitmap a/desde ByteArray.
+ * Permite almacenar imágenes directamente en la base de datos.
+ */
 class Converters {
-    // Convierte de Bitmap a ByteArray para guardar en la base de datos
+    // Convierte Bitmap a ByteArray para guardar en la BD
     @TypeConverter
     fun fromBitmap(bitmap: Bitmap?): ByteArray? {
         if (bitmap == null) return null
@@ -15,7 +19,7 @@ class Converters {
         return outputStream.toByteArray()
     }
 
-    // Convierte de ByteArray a Bitmap para mostrar en la UI
+    // Convierte ByteArray a Bitmap para mostrar en la UI
     @TypeConverter
     fun toBitmap(byteArray: ByteArray?): Bitmap? {
         return byteArray?.let { BitmapFactory.decodeByteArray(it, 0, it.size) }
