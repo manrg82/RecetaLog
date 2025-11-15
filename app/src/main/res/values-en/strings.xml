@@ -71,7 +71,6 @@
 
     <!-- About Screen -->
     <string name="acercadetitulo">Licenses and Dependencies</string>
-    <string name="version">Version: 0.3\n</string>
     <string name="autor">Author: Manuel Ruiz Gutiérrez</string>
     <string name="contacto">Contact: manuelruizgutierrez810@gmail.com\n</string>
     <string name="github">GitHub Profile: manrg82\n</string>

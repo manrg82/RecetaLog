@@ -138,6 +138,7 @@ class MainActivity : AppCompatActivity() {
 
 
         } catch (e: Exception) {
+            android.util.Log.e("MainActivity", "Error en onCreate: ${e.message}", e)
             e.printStackTrace()
         }
 
@@ -310,40 +311,48 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Actualizar si es edición, guardar si es creación
-            if (currentEditingReceta != null) {
-                viewModel.actualizarRecetaEnDB(
-                    idreceta = currentEditingReceta!!.idreceta,
-                    bitmap = imagenSeleccionadaBitmap,
-                    nombre = nombre,
-                    isVerdura = chipVerdura?.isChecked ?: false,
-                    isCarne = chipCarne?.isChecked ?: false,
-                    isPescado = chipPescado?.isChecked ?: false,
-                    isPostre = chipPostre?.isChecked ?: false,
-                    isLactosa = chipLactosa?.isChecked ?: false,
-                    isFruta = chipFruta?.isChecked ?: false,
-                    ingredientes = ingredientes,
-                    pasos = pasos
-                )
-                Toast.makeText(this, getString(R.string.msg_receta_actualizada), Toast.LENGTH_SHORT).show()
+            try {
+                // Actualizar si es edición, guardar si es creación
+                if (currentEditingReceta != null) {
+                    viewModel.actualizarRecetaEnDB(
+                        idreceta = currentEditingReceta!!.idreceta,
+                        bitmap = imagenSeleccionadaBitmap,
+                        nombre = nombre,
+                        isVerdura = chipVerdura?.isChecked ?: false,
+                        isCarne = chipCarne?.isChecked ?: false,
+                        isPescado = chipPescado?.isChecked ?: false,
+                        isPostre = chipPostre?.isChecked ?: false,
+                        isLactosa = chipLactosa?.isChecked ?: false,
+                        isFruta = chipFruta?.isChecked ?: false,
+                        ingredientes = ingredientes,
+                        pasos = pasos
+                    )
+                    Toast.makeText(this, getString(R.string.msg_receta_actualizada), Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.guardarRecetaEnDB(
+                        bitmap = imagenSeleccionadaBitmap,
+                        nombre = nombre,
+                        isVerdura = chipVerdura?.isChecked ?: false,
+                        isCarne = chipCarne?.isChecked ?: false,
+                        isPescado = chipPescado?.isChecked ?: false,
+                        isPostre = chipPostre?.isChecked ?: false,
+                        isLactosa = chipLactosa?.isChecked ?: false,
+                        isFruta = chipFruta?.isChecked ?: false,
+                        ingredientes = ingredientes,
+                        pasos = pasos
+                    )
+                    Toast.makeText(this, getString(R.string.msg_receta_guardada), Toast.LENGTH_SHORT).show()
+                }
+
+                // Cambia de vista después de un delay para permitir que se complete la operación
                 currentEditingReceta = null
-                binding.bottomNavigation.selectedItemId = R.id.navigation_recetas
-            } else {
-                viewModel.guardarRecetaEnDB(
-                    bitmap = imagenSeleccionadaBitmap,
-                    nombre = nombre,
-                    isVerdura = chipVerdura?.isChecked ?: false,
-                    isCarne = chipCarne?.isChecked ?: false,
-                    isPescado = chipPescado?.isChecked ?: false,
-                    isPostre = chipPostre?.isChecked ?: false,
-                    isLactosa = chipLactosa?.isChecked ?: false,
-                    isFruta = chipFruta?.isChecked ?: false,
-                    ingredientes = ingredientes,
-                    pasos = pasos
-                )
-                Toast.makeText(this, getString(R.string.msg_receta_guardada), Toast.LENGTH_SHORT).show()
-                currentEditingReceta = null
-                binding.bottomNavigation.selectedItemId = R.id.navigation_recetas
+                binding.lytContenedor.postDelayed({
+                    binding.bottomNavigation.selectedItemId = R.id.navigation_recetas
+                }, 800)
+
+            } catch (e: Exception) {
+                android.util.Log.e("MainActivity", "Error al guardar receta: ${e.message}", e)
+                Toast.makeText(this, getString(R.string.msg_error_guardar), Toast.LENGTH_SHORT).show()
             }
         }
 

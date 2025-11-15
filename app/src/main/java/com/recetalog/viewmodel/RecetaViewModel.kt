@@ -18,19 +18,19 @@ import java.io.ByteArrayOutputStream
  */
 class RecetaViewModel(application: Application) : AndroidViewModel(application) {
     // Repositorio para acceder a los datos
-    private val repository: RecetaRepository
-    // LiveData con todas las recetas
-    val data: LiveData<List<Receta>>
+    private lateinit var repository: RecetaRepository
 
-    // Indica si el guardado fue exitoso
-    private val _guardadoExitoso = MutableLiveData<Boolean>()
-    val guardadoExitoso: LiveData<Boolean> get() = _guardadoExitoso
 
     // Inicializa el repositorio y observa los datos
     init{
-        val recetaDAO = com.recetalog.model.conexion.AppDatabase.getDatabase(application).recetaDAO()
-        repository = RecetaRepository(recetaDAO)
-        data = repository.getAllRecetas()
+        try {
+            val recetaDAO = com.recetalog.model.conexion.AppDatabase.getDatabase(application).recetaDAO()
+            repository = RecetaRepository(recetaDAO)
+            android.util.Log.d("RecetaViewModel", "ViewModel inicializado correctamente")
+        } catch (e: Exception) {
+            android.util.Log.e("RecetaViewModel", "Error al inicializar ViewModel: ${e.message}", e)
+            throw e
+        }
     }
 
     /**
@@ -53,9 +53,14 @@ class RecetaViewModel(application: Application) : AndroidViewModel(application) 
             try {
                 // Convierte Bitmap a ByteArray si existe
                 val byteArray = bitmap?.let {
+                    // Redimensiona la imagen para que sea más pequeña
+                    val resizedBitmap = Bitmap.createScaledBitmap(it, 400, 300, true)
                     val stream = ByteArrayOutputStream()
-                    it.compress(Bitmap.CompressFormat.PNG, 90, stream)
-                    stream.toByteArray()
+                    // Comprime agresivamente a 50% de calidad
+                    resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
+                    val compressed = stream.toByteArray()
+                    android.util.Log.d("RecetaViewModel", "Imagen comprimida: ${compressed.size} bytes")
+                    compressed
                 }
 
                 // Crea la entidad Receta con los datos proporcionados
@@ -75,10 +80,9 @@ class RecetaViewModel(application: Application) : AndroidViewModel(application) 
 
                 // Inserta en la BD a través del repositorio
                 repository.insert(receta)
-
-                _guardadoExitoso.postValue(true)
+                android.util.Log.d("RecetaViewModel", "Receta guardada exitosamente: $nombre")
             } catch (e: Exception) {
-                _guardadoExitoso.postValue(false)
+                android.util.Log.e("RecetaViewModel", "Error al guardar receta: ${e.message}", e)
             }
         }
     }
@@ -104,9 +108,14 @@ class RecetaViewModel(application: Application) : AndroidViewModel(application) 
             try {
                 // Convierte Bitmap a ByteArray si existe
                 val byteArray = bitmap?.let {
+                    // Redimensiona la imagen para que sea más pequeña
+                    val resizedBitmap = Bitmap.createScaledBitmap(it, 400, 300, true)
                     val stream = ByteArrayOutputStream()
-                    it.compress(Bitmap.CompressFormat.PNG, 90, stream)
-                    stream.toByteArray()
+                    // Comprime agresivamente a 50% de calidad
+                    resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
+                    val compressed = stream.toByteArray()
+                    android.util.Log.d("RecetaViewModel", "Imagen comprimida: ${compressed.size} bytes")
+                    compressed
                 }
 
                 // Crea la entidad con el ID existente
@@ -126,10 +135,9 @@ class RecetaViewModel(application: Application) : AndroidViewModel(application) 
 
                 // Actualiza en la BD a través del repositorio
                 repository.update(receta)
-
-                _guardadoExitoso.postValue(true)
+                android.util.Log.d("RecetaViewModel", "Receta actualizada exitosamente: $nombre")
             } catch (e: Exception) {
-                _guardadoExitoso.postValue(false)
+                android.util.Log.e("RecetaViewModel", "Error al actualizar receta: ${e.message}", e)
             }
         }
     }
