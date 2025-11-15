@@ -42,7 +42,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/seleccionar_imagen"
+            android:textColor="@color/material_dynamic_neutral30"
+            android:textColorLink="@color/material_dynamic_neutral30"
             app:icon="@android:drawable/ic_menu_gallery"
+            app:iconTint="@color/material_dynamic_neutral30"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgRecetaPreview" />

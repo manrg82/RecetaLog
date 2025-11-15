@@ -116,7 +116,6 @@ class MainActivity : AppCompatActivity() {
 
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this, "Error al iniciar: ${e.message}", Toast.LENGTH_LONG).show()
         }
 
     }
