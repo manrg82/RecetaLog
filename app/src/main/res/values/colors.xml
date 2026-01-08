@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores básicos -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grisUI">#FFCCCCCC</color>
 
+    <!-- Top Bar -->
     <color name="topbar_background">#D1D1D1</color>
     <color name="topbar_text">#FF000000</color>
+
+    <!-- Bottom Bar -->
     <color name="bottombar_background">#D1D1D1</color>
+
+    <!-- Fondos -->
+    <color name="background_primary">#FAFAFA</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="image_placeholder">#E0E0E0</color>
+
+    <!-- Textos -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+
+    <!-- Botones -->
+    <color name="button_primary">#6200EE</color>
+    <color name="button_text_secondary">#424242</color>
+    <color name="button_stroke">#BDBDBD</color>
+
+    <!-- FAB -->
+    <color name="fab_background">#6200EE</color>
+    <color name="fab_icon">#FFFFFF</color>
+
+    <!-- Iconos -->
+    <color name="icon_tint">#757575</color>
+
+    <!-- Estados -->
+    <color name="error_color">#D32F2F</color>
+    <color name="success_color">#388E3C</color>
+
+    <!-- Chips / Categorías -->
+    <color name="chip_verdura">#4CAF50</color>
+    <color name="chip_carne">#F44336</color>
+    <color name="chip_pescado">#2196F3</color>
+    <color name="chip_postre">#E91E63</color>
+    <color name="chip_lactosa">#FFEB3B</color>
+    <color name="chip_fruta">#FF9800</color>
 </resources>

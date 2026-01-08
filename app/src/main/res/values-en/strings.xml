@@ -5,6 +5,7 @@
     <string name="nav_home">Home</string>
     <string name="nav_recipes">My Recipes</string>
     <string name="nav_acercade">About</string>
+    <string name="btn_volver">Back</string>
 
     <!-- Home Screen -->
     <string name="bienvenido">Welcome to RecetaLog!</string>
@@ -15,6 +16,7 @@
 
     <!-- Recipe List -->
     <string name="mis_recetas">My Recipes</string>
+    <string name="detalle_receta">Recipe Detail</string>
 
     <!-- Add/Edit Recipe -->
     <string name="nueva_receta">New Recipe</string>
@@ -58,6 +60,7 @@
     <string name="sin_recetas">No recipes match the filter</string>
 
     <!-- Options Screen -->
+    <string name="opciones">Options</string>
     <string name="modoOscuro">Dark Mode</string>
     <string name="licencias">Licenses and Dependencies</string>
     <string name="borrar">Delete Data</string>
@@ -69,11 +72,20 @@
     <string name="modo_oscuro_activado">Dark mode activated</string>
     <string name="modo_oscuro_desactivado">Dark mode deactivated</string>
 
+    <!-- Language -->
+    <string name="seleccionar_idioma">Language</string>
+    <string name="idioma_sistema">System language</string>
+    <string name="idioma_espanol">Español</string>
+    <string name="idioma_ingles">English</string>
+    <string name="idioma_cambiado">Language changed. Restart the app to apply.</string>
+
     <!-- About Screen -->
     <string name="acercadetitulo">Licenses and Dependencies</string>
+    <string name="dependencias_titulo">Dependencies</string>
     <string name="autor">Author: Manuel Ruiz Gutiérrez</string>
     <string name="contacto">Contact: manuelruizgutierrez810@gmail.com\n</string>
     <string name="github">GitHub Profile: manrg82\n</string>
-    <string name="acercadecontent">Third-party dependencies:- androidx.core:core-ktx:1.x.x License: Apache License 2.0 https://www.apache.org/licenses/LICENSE-2.0- com.squareup.retrofit2:retrofit:2.x.x  License: Apache License 2.0&#xA;https://www.apache.org/licenses/LICENSE-2.0- com.github.bumptech.glide:glide:4.x.x  License: BSD, see: https://github.com/bumptech/glide/blob/master/LICENSE- timber:timber:4.x.x  License: MIT&#xA;https://opensource.org/licenses/MIT&#xA;AndroidX Core KTX — Apache-2.0AndroidX AppCompat — Apache-2.0Material Components (com.google.android.material) — Apache-2.0ConstraintLayout — Apache-2.0Navigation Component — Apache-2.0Lifecycle / ViewModel / LiveData — Apache-2.0Room — Apache-2.0WorkManager — Apache-2.0Kotlin stdlib / Kotlinx Coroutines — Apache-2.0Retrofit — Apache-2.0OkHttp — Apache-2.0Moshi / Gson — Apache-2.0Glide — BSDCoil — Apache-2.0Hilt / Dagger — Apache-2.0Timber — MITFirebase Android SDKs — Apache-2.0 ExoPlayer — Apache-2.0</string>
+    <string name="acercadecontent">Third-party dependencies:\n\n• androidx.core:core-ktx - Apache 2.0\n• androidx.appcompat - Apache 2.0\n• Material Components - Apache 2.0\n• ConstraintLayout - Apache 2.0\n• Room Database - Apache 2.0\n• Lifecycle/ViewModel - Apache 2.0\n• Kotlin Coroutines - Apache 2.0</string>
+    <string name="version">Version 1.0</string>
 </resources>
 

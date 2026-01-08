@@ -3,11 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_primary"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <!-- Top Bar con botón volver -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/topbar_background"
+            android:elevation="4dp"
+            android:minHeight="56dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/btn_volver"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/topbar_text" />
+
+            <TextView
+                android:id="@+id/txtTituloBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detalle_receta"
+                android:textColor="@color/topbar_text"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/imgRecetaDetalle"
@@ -18,7 +59,7 @@
             android:src="@mipmap/logoapp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/topBar" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardContent"
@@ -27,6 +68,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="-40dp"
             android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="@color/card_background"
             app:cardCornerRadius="16dp"
             app:cardElevation="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +85,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Nombre de la Receta"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:textSize="28sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/ingredientes_titulo"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:lineSpacingExtra="4dp"
-                    android:textColor="?android:attr/textColorSecondary"
+                    android:textColor="@color/text_secondary"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -161,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/pasos_titulo"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -174,7 +216,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:lineSpacingExtra="4dp"
-                    android:textColor="?android:attr/textColorSecondary"
+                    android:textColor="@color/text_secondary"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -206,7 +248,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:text="@string/btn_editar"
-                app:icon="@android:drawable/ic_menu_edit" />
+                app:icon="@android:drawable/ic_menu_edit"
+                app:strokeColor="@color/button_stroke" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEliminarReceta"
@@ -216,9 +259,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="@string/btn_eliminar"
+                android:textColor="@color/error_color"
                 app:icon="@android:drawable/ic_menu_delete"
-                app:iconTint="#D32F2F"
-                app:strokeColor="#D32F2F" />
+                app:iconTint="@color/error_color"
+                app:strokeColor="@color/error_color" />
 
         </LinearLayout>
 

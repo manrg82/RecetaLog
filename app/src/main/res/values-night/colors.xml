@@ -3,5 +3,18 @@
     <color name="topbar_background">#212121</color>
     <color name="topbar_text">#FFFFFFFF</color>
     <color name="bottombar_background">#212121</color>
+    <color name="background_primary">#121212</color>
+    <color name="card_background">#1E1E1E</color>
+    <color name="image_placeholder">#424242</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+    <color name="button_primary">#BB86FC</color>
+    <color name="button_text_secondary">#E0E0E0</color>
+    <color name="button_stroke">#424242</color>
+    <color name="fab_background">#BB86FC</color>
+    <color name="fab_icon">#000000</color>
+    <color name="icon_tint">#B0B0B0</color>
+    <color name="error_color">#CF6679</color>
+    <color name="success_color">#81C784</color>
 </resources>
 
