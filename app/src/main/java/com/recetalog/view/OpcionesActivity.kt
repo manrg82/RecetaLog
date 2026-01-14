@@ -44,10 +44,6 @@ class OpcionesActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnBor.setOnClickListener {
-            showDeleteDataDialog()
-        }
-
         binding.btnBack.setOnClickListener {
             finish()
         }
@@ -99,24 +95,6 @@ class OpcionesActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun showDeleteDataDialog() {
-        AlertDialog.Builder(this)
-            .setTitle(R.string.borrar)
-            .setMessage(R.string.confirmar_borrado)
-            .setPositiveButton(R.string.si) { _, _ ->
-                lifecycleScope.launch {
-                    viewModel.getAllRecetas().value?.forEach { receta ->
-                        viewModel.delete(receta)
-                    }
-                    Toast.makeText(
-                        this@OpcionesActivity,
-                        getString(R.string.datos_borrados),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-            .setNegativeButton(R.string.no, null)
-            .show()
-    }
+
 }
 

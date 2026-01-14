@@ -17,6 +17,12 @@ import com.recetalog.model.Receta
 import com.recetalog.viewmodel.RecetaViewModel
 import kotlinx.coroutines.launch
 import java.util.Locale
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
 
 /**
  * Actividad principal: pantalla de inicio con navegación a Recetas y Opciones.
@@ -99,12 +105,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun drawableToBitmap(drawable: Drawable): Bitmap {
+        if (drawable is BitmapDrawable) {
+            drawable.bitmap?.let { return it }
+        }
+        val width = (drawable.intrinsicWidth.takeIf { it > 0 } ?: 1)
+        val height = (drawable.intrinsicHeight.takeIf { it > 0 } ?: 1)
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        drawable.draw(canvas)
+        return bitmap
+    }
+
+    private fun getBitmapFromResourceName(name: String): Bitmap? {
+        val resIdDrawable = resources.getIdentifier(name, "drawable", packageName)
+        val resIdMipmap = resources.getIdentifier(name, "mipmap", packageName)
+        val resId = if (resIdDrawable != 0) resIdDrawable else if (resIdMipmap != 0) resIdMipmap else 0
+        if (resId == 0) return null
+        val drawable = ContextCompat.getDrawable(this, resId) ?: return null
+        return drawableToBitmap(drawable)
+    }
+
     private fun insertarDatosIniciales() {
         viewModel.getAllRecetas().observe(this) { recetas ->
             if (recetas.isEmpty()) {
                 lifecycleScope.launch {
+                    val bmpEnsalada = getBitmapFromResourceName("ensalada")
                     viewModel.guardarRecetaEnDB(
-                        bitmap = null,
+                        bitmap = bmpEnsalada,
                         nombre = "Ensalada César",
                         isVerdura = true,
                         isCarne = false,
@@ -116,8 +145,9 @@ class MainActivity : AppCompatActivity() {
                         pasos = "1. Lavar y cortar la lechuga en trozos.\n2. Añadir los crutones.\n3. Rallar el queso parmesano por encima.\n4. Agregar el aderezo César.\n5. Mezclar bien y servir."
                     )
 
+                    val bmpSalmon = getBitmapFromResourceName("salmon")
                     viewModel.guardarRecetaEnDB(
-                        bitmap = null,
+                        bitmap = bmpSalmon,
                         nombre = "Salmón al Horno",
                         isVerdura = false,
                         isCarne = false,
@@ -129,8 +159,9 @@ class MainActivity : AppCompatActivity() {
                         pasos = "1. Precalentar el horno a 200°C.\n2. Colocar el salmón en una bandeja.\n3. Sazonar con sal, pimienta y ajo.\n4. Rociar con aceite y jugo de limón.\n5. Hornear 15-20 minutos.\n6. Decorar con eneldo y servir."
                     )
 
+                    val bmpTarta = getBitmapFromResourceName("tartamanzana")
                     viewModel.guardarRecetaEnDB(
-                        bitmap = null,
+                        bitmap = bmpTarta,
                         nombre = "Tarta de Manzana",
                         isVerdura = false,
                         isCarne = false,
@@ -142,8 +173,9 @@ class MainActivity : AppCompatActivity() {
                         pasos = "1. Mezclar harina, mantequilla y azúcar para la masa.\n2. Forrar un molde con la masa.\n3. Pelar y cortar las manzanas en láminas.\n4. Colocar las manzanas sobre la masa.\n5. Espolvorear con canela y azúcar.\n6. Hornear a 180°C por 35 minutos."
                     )
 
+                    val bmpPollo = getBitmapFromResourceName("curry")
                     viewModel.guardarRecetaEnDB(
-                        bitmap = null,
+                        bitmap = bmpPollo,
                         nombre = "Pollo al Curry",
                         isVerdura = true,
                         isCarne = true,
@@ -151,25 +183,11 @@ class MainActivity : AppCompatActivity() {
                         isPostre = false,
                         isLactosa = true,
                         isFruta = false,
-                        ingredientes = "• 500g pechuga de pollo\n• 1 cebolla\n• 400ml leche de coco\n• 2 cucharadas de curry\n• 1 pimiento rojo\n• Arroz basmati",
-                        pasos = "1. Cortar el pollo en cubos.\n2. Sofreír la cebolla y el pimiento.\n3. Añadir el pollo y dorar.\n4. Agregar el curry y mezclar.\n5. Verter la leche de coco.\n6. Cocinar 20 min a fuego lento.\n7. Servir con arroz."
-                    )
-
-                    viewModel.guardarRecetaEnDB(
-                        bitmap = null,
-                        nombre = "Batido Tropical",
-                        isVerdura = false,
-                        isCarne = false,
-                        isPescado = false,
-                        isPostre = false,
-                        isLactosa = true,
-                        isFruta = true,
-                        ingredientes = "• 1 plátano\n• 1 mango\n• 200ml leche\n• 100g yogur natural\n• Miel al gusto\n• Hielo",
-                        pasos = "1. Pelar y trocear las frutas.\n2. Añadir todos los ingredientes a la licuadora.\n3. Licuar hasta obtener consistencia suave.\n4. Servir frío."
+                        ingredientes = "• 500g pollo\n• 2 cebollas\n• 2 tomates\n• 2 cucharadas curry\n• Leche de coco\n• Aceite\n• Sal y pimienta",
+                        pasos = "1. Pochar la cebolla y el ajo.\n2. Añadir el pollo y dorar.\n3. Agregar tomate y curry.\n4. Verter leche de coco y cocinar 20 minutos.\n5. Servir con arroz."
                     )
                 }
             }
         }
     }
 }
-

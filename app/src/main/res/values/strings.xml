@@ -86,6 +86,6 @@
     <string name="contacto">Contacto: manuelruizgutierrez810@gmail.com\n</string>
     <string name="github">Perfil en Github: manrg82\n</string>
     <string name="acercadecontent">Dependencias de terceros:\n\n• androidx.core:core-ktx - Apache 2.0\n• androidx.appcompat - Apache 2.0\n• Material Components - Apache 2.0\n• ConstraintLayout - Apache 2.0\n• Room Database - Apache 2.0\n• Lifecycle/ViewModel - Apache 2.0\n• Kotlin Coroutines - Apache 2.0</string>
-    <string name="version">Version 1.0</string>
+    <string name="version">Versión 2.0</string>
 </resources>
 

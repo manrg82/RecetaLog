@@ -56,7 +56,6 @@ class RecetaViewModel(application: Application) : AndroidViewModel(application) 
                     // Redimensiona la imagen para que sea más pequeña
                     val resizedBitmap = Bitmap.createScaledBitmap(it, 400, 300, true)
                     val stream = ByteArrayOutputStream()
-                    // Comprime agresivamente a 50% de calidad
                     resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
                     val compressed = stream.toByteArray()
                     android.util.Log.d("RecetaViewModel", "Imagen comprimida: ${compressed.size} bytes")
